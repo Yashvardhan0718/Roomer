@@ -17,9 +17,9 @@
   "author": "Yashvardhan",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/csc309-fall-2020/team39/issues"
+    "url": "https://github.com/Yashvardhan0718/Roomer/settings"
   },
-  "homepage": "https://github.com/csc309-fall-2020/team39#readme",
+  "homepage": "https://github.com/Yashvardhan0718/Roomer",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
