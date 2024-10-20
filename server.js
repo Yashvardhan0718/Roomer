@@ -18,7 +18,7 @@ mongoose.set('useFindAndModify', false);
 // to validate object IDs
 const { ObjectID } = require("mongodb");
 const { User } = require("./models/user");
-const { Admin } = require("./models/admin");
+const { Admin } = require("./models/admin")
 const { UserPost } = require("./models/userPost");
 
 // multipart middleware: allows you to access uploaded file from req.file
@@ -27,9 +27,9 @@ const multipartMiddleware = multipart();
 
 const cloudinary = require('cloudinary');
 cloudinary.config({
-    cloud_name: '',
-    api_key: '',
-    api_secret: ''
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
 });
 
 // body-parser: middleware for parsing HTTP JSON body into a usable object
@@ -345,7 +345,7 @@ app.put('/api/users/:id', mongoChecker, authenticateUserProfileOrAdmin, async (r
             res.status(400).send('Bad Request')
         }
     }
-});
+})
 
 app.put('/api/users/:id/password', mongoChecker, authenticateUserProfileOrAdmin, async (req, res) => {
     const { password } = req.body;
@@ -384,7 +384,7 @@ app.put('/api/users/:id/img', mongoChecker, authenticateUserProfileOrAdmin, mult
             res.status(400).send('Bad Request')
         }
     }
-});
+})
 
 app.post('/api/users/:id/report', mongoChecker, authenticateUserOrAdmin, async (req, res) => {
     try {
@@ -403,7 +403,7 @@ app.post('/api/users/:id/report', mongoChecker, authenticateUserOrAdmin, async (
             res.status(400).send('Bad Request')
         }
     }
-});
+})
 
 app.delete('/api/users/:id', mongoChecker, authenticateAdmin, async (req, res) => {
     try {
@@ -424,7 +424,7 @@ app.delete('/api/users/:id', mongoChecker, authenticateAdmin, async (req, res) =
     } catch {
         res.status(500).send("Internal Server Error")
     }
-});
+})
 
 app.post('/api/posts/new', mongoChecker, authenticate, multipartMiddleware, async (req, res) => {
     const { title, location, price, preferences, description } = req.body
@@ -470,7 +470,7 @@ app.post('/api/posts/new', mongoChecker, authenticate, multipartMiddleware, asyn
             }
         }
     );
-});
+})
 
 app.get('/api/posts', mongoChecker, async (req, res) => {
     try {
@@ -479,7 +479,7 @@ app.get('/api/posts', mongoChecker, async (req, res) => {
     } catch(error) {
         res.status(500).send("Internal Server Error")
     }
-});
+})
 
 app.get('/api/posts/:id', mongoChecker, async (req, res) => {
     try {
@@ -492,7 +492,7 @@ app.get('/api/posts/:id', mongoChecker, async (req, res) => {
     } catch {
         res.status(500).send("Internal Server Error")
     }
-});
+})
 
 app.put('/api/posts/:id', mongoChecker, authenticateCreatorOrAdmin, async (req, res) => {
     const { title, location, price, preferences, description } = req.body
@@ -523,7 +523,7 @@ app.put('/api/posts/:id', mongoChecker, authenticateCreatorOrAdmin, async (req, 
             res.status(400).send('Bad Request')
         }
     }
-});
+})
 
 app.put('/api/posts/:id/img', mongoChecker, authenticateCreatorOrAdmin, multipartMiddleware, async (req, res) => {
     cloudinary.uploader.upload(
@@ -546,7 +546,7 @@ app.put('/api/posts/:id/img', mongoChecker, authenticateCreatorOrAdmin, multipar
             }
         }
     );
-});
+})
 
 app.post('/api/posts/:id/report', mongoChecker, authenticateUserOrAdmin, async (req, res) => {
     try {
@@ -565,7 +565,7 @@ app.post('/api/posts/:id/report', mongoChecker, authenticateUserOrAdmin, async (
             res.status(400).send('Bad Request')
         }
     }
-});
+})
 
 app.delete('/api/posts/:id', mongoChecker, authenticateCreatorOrAdmin, async (req, res) => {
     try {
@@ -587,7 +587,7 @@ app.delete('/api/posts/:id', mongoChecker, authenticateCreatorOrAdmin, async (re
     } catch {
         res.status(500).send("Internal Server Error")
     }
-});
+})
 
 // Serve the build
 app.use(express.static(path.join(__dirname, "/client/build")));
@@ -611,5 +611,3 @@ app.get("*", (req, res) => {
 app.listen(port, () => {
     log(`Listening on port ${port}...`);
 });
-
-
